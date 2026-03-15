@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>M&M Piano — Private Piano Instruction · San Jose, CA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory: #F8F4EC;
+      --cream: #EFE9DC;
+      --ebony: #1A1410;
+      --deep: #2C2318;
+      --gold: #B8943F;
+      --gold-light: #D4AF6A;
+      --muted: #7A6E61;
+      --border: rgba(184,148,63,0.25);
+      --shadow: 0 8px 40px rgba(26,20,16,0.12);
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--ivory);
+      color: var(--ebony);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+ 
+    /* ── PIANO KEY TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        #fff 0px, #fff 28px,
+        #1A1410 28px, #1A1410 36px,
+        #fff 36px, #fff 64px,
+        #1A1410 64px, #1A1410 72px,
+        #fff 72px, #fff 100px,
+        #1A1410 100px, #1A1410 108px,
+        #fff 108px, #fff 136px,
+        #fff 136px, #fff 164px,
+        #1A1410 164px, #1A1410 172px,
+        #fff 172px, #fff 200px
+      );
+      z-index: 1000;
+    }
+ 
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 6px; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 60px;
+      background: rgba(248,244,236,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+ 
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ebony);
+      text-decoration: none;
+    }
+ 
+    .nav-logo span { color: var(--gold); }
+ 
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+ 
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.25s;
+    }
+ 
+    .nav-links a:hover { color: var(--gold); }
+ 
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 50%, rgba(184,148,63,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(44,35,24,0.06) 0%, transparent 60%);
+    }
+ 
+    /* Floating piano keys decoration */
+    .keys-deco {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 0;
+      height: 420px;
+      opacity: 0.06;
+    }
+ 
+    .key-w {
+      width: 52px;
+      height: 100%;
+      background: var(--ebony);
+      border-radius: 0 0 6px 6px;
+      margin: 0 2px;
+    }
+ 
+    .key-b {
+      width: 34px;
+      height: 60%;
+      background: var(--ebony);
+      border-radius: 0 0 4px 4px;
+      margin: 0 -17px;
+      z-index: 2;
+      position: relative;
+    }
+ 
+    .hero-content {
+      position: relative;
+      max-width: 680px;
+    }
+ 
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+ 
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+    }
+ 
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 7vw, 5.8rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ebony);
+      margin-bottom: 28px;
+    }
+ 
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+ 
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 48px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+ 
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+ 
+    .btn-primary {
+      background: var(--ebony);
+      color: var(--ivory);
+      padding: 15px 38px;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.25s, transform 0.2s;
+      display: inline-block;
+    }
+ 
+    .btn-primary:hover {
+      background: var(--deep);
+      transform: translateY(-1px);
+    }
+ 
+    .btn-outline {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 15px 38px;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.25s;
+      display: inline-block;
+    }
+ 
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--ivory);
+    }
+ 
+    .hero-badge {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      width: 140px;
+      height: 140px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+      background: rgba(248,244,236,0.7);
+    }
+ 
+    .hero-badge .big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+ 
+    .hero-badge .small {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+ 
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 100px 60px;
+    }
+ 
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+ 
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ebony);
+      margin-bottom: 20px;
+    }
+ 
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 40px;
+    }
+ 
+    /* ── ABOUT ── */
+    #about {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+ 
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 0.97rem;
+      line-height: 1.85;
+    }
+ 
+    .about-text p:last-child { margin-bottom: 0; }
+ 
+    .about-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+ 
+    .stat-card {
+      background: var(--ivory);
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      transition: box-shadow 0.25s;
+    }
+ 
+    .stat-card:hover { box-shadow: var(--shadow); }
+ 
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      min-width: 80px;
+    }
+ 
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+ 
+    .stat-label strong {
+      display: block;
+      color: var(--ebony);
+      font-weight: 500;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+ 
+    /* ── SERVICES ── */
+    #services {
+      background: var(--ivory);
+    }
+ 
+    .services-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-bottom: 60px;
+    }
+ 
+    .services-desc {
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.85;
+      padding-top: 8px;
+    }
+ 
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+ 
+    .service-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 40px 32px;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+ 
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+ 
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+ 
+    .service-card:hover::before { transform: scaleX(1); }
+ 
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+ 
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ebony);
+      margin-bottom: 12px;
+    }
+ 
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+ 
+    /* ── LOCATION NOTICE ── */
+    #location {
+      background: var(--ebony);
+      color: var(--ivory);
+      text-align: center;
+      padding: 80px 60px;
+    }
+ 
+    #location .section-label { color: var(--gold-light); }
+ 
+    #location .section-title { color: var(--ivory); }
+ 
+    .location-notice {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+ 
+    .location-notice p {
+      color: rgba(248,244,236,0.65);
+      font-size: 0.97rem;
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+ 
+    .location-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(184,148,63,0.15);
+      border: 1px solid rgba(184,148,63,0.3);
+      color: var(--gold-light);
+      padding: 10px 24px;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 16px;
+    }
+ 
+    /* ── BOOKING ── */
+    #booking {
+      background: var(--cream);
+    }
+ 
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 80px;
+      align-items: start;
+    }
+ 
+    .booking-info p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+ 
+    .booking-details {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+ 
+    .booking-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+ 
+    .booking-detail .icon {
+      font-size: 1.1rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+ 
+    /* Calendar */
+    .calendar-widget {
+      background: var(--ivory);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+ 
+    .cal-header {
+      background: var(--ebony);
+      color: var(--ivory);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+ 
+    .cal-month {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+ 
+    .cal-nav {
+      background: none;
+      border: 1px solid rgba(248,244,236,0.2);
+      color: var(--ivory);
+      width: 34px;
+      height: 34px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    .cal-nav:hover { background: rgba(248,244,236,0.1); }
+ 
+    .cal-body { padding: 24px 28px 28px; }
+ 
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin-bottom: 10px;
+    }
+ 
+    .cal-weekdays span {
+      text-align: center;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 6px 0;
+      font-weight: 500;
+    }
+ 
+    .cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+ 
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      border-radius: 3px;
+      cursor: default;
+      color: var(--muted);
+      transition: all 0.18s;
+      border: 1px solid transparent;
+    }
+ 
+    .cal-day.empty { background: transparent; cursor: default; }
+ 
+    .cal-day.past {
+      color: rgba(122,110,97,0.3);
+      cursor: not-allowed;
+    }
+ 
+    .cal-day.available {
+      color: var(--ebony);
+      cursor: pointer;
+      font-weight: 400;
+    }
+ 
+    .cal-day.available:hover {
+      background: var(--gold);
+      color: var(--ivory);
+      border-color: var(--gold);
+      transform: scale(1.08);
+    }
+ 
+    .cal-day.selected {
+      background: var(--ebony);
+      color: var(--ivory);
+      border-color: var(--ebony);
+    }
+ 
+    .cal-day.today {
+      border-color: var(--gold);
+      color: var(--gold);
+      font-weight: 500;
+    }
+ 
+    .booking-form {
+      margin-top: 24px;
+      padding: 24px 28px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+ 
+    .booking-form.visible { display: block; }
+ 
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+ 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+ 
+    .form-group.full { grid-column: 1 / -1; }
+ 
+    .form-group label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+ 
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1px solid var(--border);
+      background: var(--ivory);
+      padding: 10px 14px;
+      border-radius: 2px;
+      font-size: 0.88rem;
+      font-family: 'Outfit', sans-serif;
+      color: var(--ebony);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+ 
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+ 
+    .form-group textarea { resize: vertical; min-height: 80px; }
+ 
+    .selected-date-display {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+ 
+    .btn-submit {
+      background: var(--gold);
+      color: var(--ivory);
+      padding: 14px 36px;
+      border: none;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+      width: 100%;
+      margin-top: 8px;
+    }
+ 
+    .btn-submit:hover {
+      background: var(--ebony);
+      transform: translateY(-1px);
+    }
+ 
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      color: rgba(248,244,236,0.5);
+      padding: 52px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+ 
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--ivory);
+      font-weight: 400;
+    }
+ 
+    .footer-brand span { color: var(--gold); }
+ 
+    .footer-center {
+      text-align: center;
+    }
+ 
+    .footer-center p {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
+ 
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: rgba(248,244,236,0.35);
+    }
+ 
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 20px; }
+      section { padding: 72px 24px; }
+      #hero { padding: 110px 24px 72px; }
+      #about { grid-template-columns: 1fr; gap: 48px; }
+      .services-intro { grid-template-columns: 1fr; gap: 24px; }
+      .service-grid { grid-template-columns: 1fr; }
+      .booking-layout { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; padding: 40px 24px; }
+      .hero-badge { display: none; }
+    }
+ 
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    .hero-content > * {
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-eyebrow { animation-delay: 0.1s; }
+    .hero-title   { animation-delay: 0.2s; }
+    .hero-sub     { animation-delay: 0.32s; }
+    .hero-cta     { animation-delay: 0.44s; }
+  </style>
+</head>
+<body>
+ 
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">M<span>&</span>M Piano</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#booking">Book a Session</a></li>
+    </ul>
+  </nav>
+ 
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Private Piano Instruction · San Jose, CA</p>
+      <h1 class="hero-title">
+        Where Every<br/>
+        Note Becomes<br/>
+        <em>Your Own</em>
+      </h1>
+      <p class="hero-sub">
+        Personalized one-on-one piano tuition for all levels — from first-time players to seasoned musicians refining their technique. Rooted in passion, guided by experience.
+      </p>
+      <div class="hero-cta">
+        <a href="#booking" class="btn-primary">Book a Session</a>
+        <a href="#about" class="btn-outline">Meet the Instructors</a>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <span class="big">10</span>
+      <span class="small">Years of<br/>Excellence</span>
+    </div>
+  </section>
+ 
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-text">
+      <p class="section-label">About Us</p>
+      <h2 class="section-title">A Passion for<br/>Piano, Perfected</h2>
+      <div class="divider"></div>
+      <p>
+        M&M Piano was co-founded by two sisters who share an unwavering love for music and a commitment to nurturing that same love in others. The name itself reflects their partnership — M&M — a bond built on harmony both in life and in music.
+      </p>
+      <p>
+        With close to a decade of hands-on performance and teaching experience, our lead instructor brings not only technical mastery but a genuine joy for the craft. Having served as a pianist across three choirs, the musicianship here goes far beyond the keys — it is deeply rooted in ensemble, theory, and expressive playing.
+      </p>
+      <p>
+        Co-founder Mimi shares that same dedication, helping shape M&M Piano into the warm, professional, and inspiring studio it is today. Together, they have created a space where students of every level are empowered to find their voice at the piano.
+      </p>
+    </div>
+    <div class="about-visual">
+      <div class="stat-card">
+        <div class="stat-num">~10</div>
+        <div class="stat-label">
+          <strong>Years of Experience</strong>
+          Nearly a decade of performance, teaching, and musical growth.
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">
+          <strong>Choirs Served</strong>
+          Active choir pianist with deep ensemble and collaborative experience.
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">
+          <strong>Co-Founders</strong>
+          Sisters united by music — M&M is a family-built studio.
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-intro">
+      <div>
+        <p class="section-label">What We Offer</p>
+        <h2 class="section-title">Tailored for<br/>Every Level</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="services-desc">
+        Whether you have never touched a piano or are looking to elevate your playing to the next level, M&M Piano offers structured, supportive, and personally tailored instruction. Every lesson is crafted around your goals, your pace, and your musical interests.
+      </div>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-icon">🎹</div>
+        <div class="service-name">Beginner Foundations</div>
+        <p class="service-desc">
+          Perfect for those brand new to the piano. We build strong fundamentals — hand position, reading notation, rhythm, and basic music theory — in a patient, encouraging environment.
+        </p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎵</div>
+        <div class="service-name">Technique & Theory</div>
+        <p class="service-desc">
+          For intermediate players ready to refine their playing. We focus on scales, chord progressions, sight-reading, and the music theory behind what you play — unlocking deeper understanding.
+        </p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎼</div>
+        <div class="service-name">Advanced Repertoire</div>
+        <p class="service-desc">
+          For experienced pianists aiming to master challenging pieces, explore different styles, or develop expressive artistry. Includes nuanced interpretation, dynamics, and performance preparation.
+        </p>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- LOCATION -->
+  <section id="location">
+    <div class="location-notice">
+      <p class="section-label">Service Area</p>
+      <h2 class="section-title">Based in San Jose, California</h2>
+      <div class="divider" style="margin: 0 auto 32px;"></div>
+      <p>
+        M&M Piano operates exclusively as an in-person, on-site studio. All lessons take place at our San Jose location, allowing us to provide a focused, distraction-free learning environment with professional equipment.
+      </p>
+      <p>
+        At this time, we are unable to offer remote or travel-based instruction. If you reside outside of the San Jose area or are not able to visit us in person, we regret that we cannot accommodate your request — though we hope the distance does not stand between you and your musical journey for long.
+      </p>
+      <div class="location-tag">
+        📍 &nbsp; San Jose, California · In-Person Only
+      </div>
+    </div>
+  </section>
+ 
+  <!-- BOOKING -->
+  <section id="booking">
+    <div class="booking-layout">
+      <div class="booking-info">
+        <p class="section-label">Schedule</p>
+        <h2 class="section-title">Book Your<br/>Session</h2>
+        <div class="divider"></div>
+        <p>
+          Ready to begin your musical journey — or take it further? Select a date that works for you and complete the brief request form below. We will confirm your session within 24–48 hours.
+        </p>
+        <p>
+          All sessions are held at our San Jose studio. We ask that you arrive a few minutes early so we can make the most of your time at the keys.
+        </p>
+        <div class="booking-details">
+          <div class="booking-detail">
+            <span class="icon">📍</span>
+            <span>San Jose, California<br/>Exact address provided upon confirmation</span>
+          </div>
+          <div class="booking-detail">
+            <span class="icon">⏱</span>
+            <span>Sessions available in 30, 45, or 60-minute blocks</span>
+          </div>
+          <div class="booking-detail">
+            <span class="icon">🎹</span>
+            <span>All skill levels welcome — absolute beginners to advanced players</span>
+          </div>
+          <div class="booking-detail">
+            <span class="icon">✉️</span>
+            <span>We respond to all requests within 24–48 hours</span>
+          </div>
+        </div>
+      </div>
+ 
+      <div>
+        <div class="calendar-widget">
+          <div class="cal-header">
+            <button class="cal-nav" id="prevMonth">&#8592;</button>
+            <div class="cal-month" id="calTitle"></div>
+            <button class="cal-nav" id="nextMonth">&#8594;</button>
+          </div>
+          <div class="cal-body">
+            <div class="cal-weekdays">
+              <span>Sun</span><span>Mon</span><span>Tue</span>
+              <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+            <div class="cal-days" id="calDays"></div>
+          </div>
+          <div class="booking-form" id="bookingForm">
+            <div class="selected-date-display" id="selectedDateDisplay"></div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" placeholder="Jane" />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" placeholder="Smith" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="jane@email.com" />
+              </div>
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" placeholder="(408) 555-0000" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Skill Level</label>
+                <select>
+                  <option>Absolute Beginner</option>
+                  <option>Beginner</option>
+                  <option>Intermediate</option>
+                  <option>Advanced</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Session Length</label>
+                <select>
+                  <option>30 Minutes</option>
+                  <option>45 Minutes</option>
+                  <option>60 Minutes</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group full" style="margin-bottom:14px;">
+              <label>Anything you'd like us to know?</label>
+              <textarea placeholder="Goals, age of student, prior experience, questions…"></textarea>
+            </div>
+            <button class="btn-submit" id="submitBtn">Request This Session</button>
+            <div class="success-msg" id="successMsg">
+              ✨ Thank you! We'll be in touch within 24–48 hours to confirm your session.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">M<span>&</span>M Piano</div>
+    <div class="footer-center">
+      <p>Private Piano Instruction · San Jose, CA · In-Person Only</p>
+      <p style="margin-top:6px;" class="footer-tagline">"Music gives a soul to the universe, wings to the mind."</p>
+    </div>
+    <div style="font-size:0.78rem; letter-spacing:0.04em;">
+      © 2025 M&M Piano. All rights reserved.
+    </div>
+  </footer>
+ 
+  <script>
+    // ── Calendar Logic ──
+    const months = ["January","February","March","April","May","June",
+                    "July","August","September","October","November","December"];
+    let current = new Date();
+    let viewYear = current.getFullYear();
+    let viewMonth = current.getMonth();
+    let selectedDay = null;
+ 
+    function renderCalendar() {
+      const title = document.getElementById('calTitle');
+      const grid  = document.getElementById('calDays');
+      title.textContent = months[viewMonth] + ' ' + viewYear;
+      grid.innerHTML = '';
+ 
+      const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+      const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+      const today = new Date();
+      today.setHours(0,0,0,0);
+ 
+      // Empty cells
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-day empty';
+        grid.appendChild(empty);
+      }
+ 
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement('div');
+        const date = new Date(viewYear, viewMonth, d);
+        const isPast = date < today;
+        const isToday = date.toDateString() === today.toDateString();
+        const isSel = selectedDay && date.toDateString() === selectedDay.toDateString();
+ 
+        cell.className = 'cal-day';
+        if (isPast) { cell.classList.add('past'); }
+        else if (isSel) { cell.classList.add('selected'); }
+        else if (isToday) { cell.classList.add('today', 'available'); }
+        else { cell.classList.add('available'); }
+ 
+        cell.textContent = d;
+ 
+        if (!isPast) {
+          cell.addEventListener('click', () => {
+            selectedDay = date;
+            renderCalendar();
+            showForm(date);
+          });
+        }
+ 
+        grid.appendChild(cell);
+      }
+    }
+ 
+    function showForm(date) {
+      const form = document.getElementById('bookingForm');
+      const display = document.getElementById('selectedDateDisplay');
+      const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+      display.textContent = 'Selected: ' + date.toLocaleDateString('en-US', opts);
+      form.classList.add('visible');
+      document.getElementById('successMsg').style.display = 'none';
+    }
+ 
+    document.getElementById('prevMonth').addEventListener('click', () => {
+      viewMonth--;
+      if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+      renderCalendar();
+    });
+ 
+    document.getElementById('nextMonth').addEventListener('click', () => {
+      viewMonth++;
+      if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+      renderCalendar();
+    });
+ 
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      document.getElementById('submitBtn').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    });
+ 
+    renderCalendar();
+  </script>
+</body>
+</html>
